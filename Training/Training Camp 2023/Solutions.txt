@@ -1,0 +1,291 @@
+Solutions to problems
+
+Contest 1
+H
+KMP
+Z function
+Suffix automaton
+DP of ways to reach a terminal node
+
+
+Contest 2
+
+C
+Transform the tree to linear representation
+Notice that the calculation is the same that the rect phormula
+Convex hull trick
+Use square root decomposition to transform the structure to a dinamic one
+
+Note when you are using square root you can change the size of the block
+Possible block size 185
+
+G 
+Contribution sum 
+Compress tree 
+Virtual tree 
+
+
+
+Contest 3
+
+A
+Find all the odd positions less or equal to an arbitrary x
+Use binary searh to find the x
+Keep track of the position that we are adding
+Add the position if we find one that is less or equal to x
+Keep track of the numbers in the arbitrary
+
+B 
+Disjtra
+Find the min time in which the police can reach every node
+Find the minimum time in wich the node is occupied for police
+Use disjtra multisource with every police 
+Modify the graph by multiplying all the weighs multiplying by two
+Duplicate the graph with cost by half
+Conect the nodes in the original graph with the copy graph with edges with cost 0
+
+C
+Geometry
+Binary search in quantity of points 
+Semiplane
+Use Semiplane intersection
+Compute the intersection area to find the valid coords
+Use the template that the coach has 
+
+E 
+Notice that the tree is specific
+The height is logn
+
+
+F 
+Use Z function
+Use square root decomposition to split the string
+
+
+
+Z function
+Zi = lcp(S,si-sn);
+
+
+K 
+Think about bridges
+Verify if the graph has bridges
+Compress all the subgraphs that are desconected and generate a tree
+
+
+H 
+Segment tree lazy
+
+I 
+Sort the numbers
+Kepp track of the current sum
+Take decision if add our substract the next number from num 
+Use an arbitrary modulo a big prime to compute the modulo
+Use one for to process the answer with the arbitrary modulo
+
+Keep track of the sum that i need to set it to zero and compute if the quantity of numbers is less than we need then stop the process
+
+M
+Sweep Line
+Use the segment tree 
+Use coord compreshion
+Implicit segment tree
+Use compreshion in y 
+This is a classic problem of geometry
+
+Contest 4
+A 
+
+B
+Use disjtra with modified graph adding invert edges
+Keep track of the status
+
+
+C
+
+D
+Brute force
+20 lines at most
+
+E
+Min path cover
+
+
+F
+DP 
+Keep state of non-visited, executing, and terminated
+Use biginteger
+
+G
+
+H
+ 
+I
+
+J
+
+K
+KMP
+KMP automaton
+
+
+L
+Exchange argument 
+
+
+M
+Hope computing
+Contribution technique
+
+Contest 5
+A 
+Duplicate nodes if i come from up or side
+Link cut tree or treap
+
+
+B 
+Think this with bipartite graphs
+Transform the problem to flow problem
+Use Dinic 
+
+Another solution use greedy
+n*mlogn
+
+E 
+DP of digits
+See the problem as a number base 3
+The evaluation is the sum of the digits + lenght
+
+L 
+Anti string
+Compute the anti string with the sheets, erase every set of sheets until there are no more nodes
+
+Contest 6
+
+B 
+Calculate the LIS (Longest increasing subsecuence)
+Sort the first element and then excecute LIS in the second element
+Use LIS with set or segment tree to improve the complexity
+
+C 
+Flow with lower-bound 
+Circulation problem
+
+D 
+Persistant Segment tree
+Hard-Ligth decomposition
+
+Learn how to do range queries
+
+F 
+Convex hull 
+LCA 
+
+
+G 
+Math Hope
+Simulation 
+Contribution technique
+Ternary search between sides
+
+
+H 
+Backtracking
+
+K 
+Note that is matrix multiplication
+Use segment tree to associate the multiplication in pairs
+Use four number instead of vectors
+
+J
+Brute force
+Use bitmask to keep track of the rows and columns
+Use or of the rows and colums to compute the best answer
+
+M 
+DP 
+Optimization with Convex hull trick
+
+H 
+Parse the expression 
+Do the iteration in the graph that we create in the previous step
+Use greedy select the sheets that has the biggest deep
+
+Contest 7
+B 
+Binary search
+
+C 
+Centroid decomposition
+Use implicit segment tree
+
+D 
+Square root decomposition
+If the uptdate is the maximum in the range then update the range and then 
+push the updates
+Before updating 
+
+F 
+Contribution technique
+LCM in prime factorization
+Use multiplication of all the m to k-1
+Use wallfram
+The answer is the multiplication of the ways to select zeros and the ways to select ones
+
+G 
+Use Trie 
+Insert all the digits in a Trie
+Iterate through the elements in the Trie
+
+H 
+HLD
+Compute hashing of the 100 positions 
+Use kmp or z function to compute the patterns
+
+
+M //Hard to think Easy to code
+Think it backward 
+Start at the end
+Use modified disjtra
+
+J 
+LIS
+Compute it with arbitarily big number to copute the toal number of lis and if is different of 0
+
+Contest 8
+B 
+Plain tree with dfs
+Use segment tree
+Store the values of the 6 posible prime factors
+
+E 
+Brute force
+
+J 
+Prefix sum with cross product 
+Use shoelace method
+
+G 
+Matrix exponenciation
+
+M 
+Think geometrically
+Observation: define a range where every interval is valid 
+Sweep line 
+Lazy segment tree 
+
+F 
+Treap 
+Use implementation with pointers to find fast the kth node 
+
+H 
+Game theory 
+Sprage grundy
+Nim Game
+
+D 
+Union find iterating from small to large keep a history of the best
+
+C 
+Chinnese postman problem
+Euler tour 

@@ -1,0 +1,71 @@
+{
+  "version": "0.2.0",
+  // "configurations": [
+  //   {
+  //     "name": "runShell",
+  //     "type": "cppdbg",
+  //     "request": "launch",
+  //     "program": "C:\\Windows\\System32\\cmd.exe",
+  //     "args": ["start","cmd","/k","${fileDirname}\\${fileBasenameNoExtension}.exe"],
+  //     "stopAtEntry": false,
+  //     "cwd": "${workspaceFolder}",
+  //     "environment": [ { "name": "cmd", "value": "/k" } ],
+  //     "externalConsole": true,
+  //     "MIMode": "gdb",
+  //     "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe",
+  //     "setupCommands": [
+  //       {
+  //         "description": "Enable pretty-printing for gdb",
+  //         "text": "-enable-pretty-printing",
+  //         "ignoreFailures": true
+  //       }
+  //     ],
+  //     "preLaunchTask": "g++.exe build active file"
+  //   },
+  "configurations": [
+    {
+      "name": "runShell",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [ { "name": "cmd", "value": "/k" } ],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:\\MinGW\\bin\\g++.exe",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "g++.exe build active file"
+    },
+    {
+      "name": "Debbug",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "args": [],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [ { "name": "squid", "value": "clam" } ],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "g++.exe build active file"
+    }
+    
+
+  ]
+}
