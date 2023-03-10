@@ -1,3 +1,5 @@
-15
-1
-pizza_tomato pizza_base tomato 1 2
+4
+45 0
+0 -170
+-45 0
+0 170
