@@ -2,7 +2,7 @@
 // #pragma GCC target("avx,avx2,fma")
 #include <bits/stdc++.h>
 #define F first
-#define S second
+#define S second	
 #define fore(i,a,b) for(int i = (a), ThxMK = (b); i < ThxMK; ++i)
 #define pb push_back
 #define ALL(s) begin(s), end(s)
@@ -14,39 +14,20 @@
 using namespace std;
 typedef long double ld;
 typedef long long lli;
-typedef pair<lli,lli> ii;
-typedef vector<lli> vi;
-
-
-map<lli,bool> dp;
-
-bool getAns(lli n,lli x){
-    if(n>=x){
-        return false;
-    }
-    if(dp.count(n)){
-    	return dp[n];
-    }
-    bool si=false;
-    fore(i,2,10){
-        if(getAns(n*i,x)==false){
-            si=true;
-            break;
-        }
-    }
-    dp[n]=si;
-    return dp[n];
-}
 
 int main() {_ 
-    int n;
-    while(cin>>n){
-    	dp.clear();
-        if(getAns(1,n)){
-            cout<<"Stan wins."<<ENDL;
-        }else{
-            cout<<"Ollie wins."<<ENDL;
-        }
-    }
+	int a,b,c,d,e,f;
+	int ans=0;
+	cin>>a>>b>>c>>d>>e>>f;
+	if(d>a){
+		ans+=d-a;
+	}
+	if(e>b){
+		ans+=e-b;
+	}
+	if(f>c){
+		ans+=f-c;
+	}	
+	cout<<ans<<ENDL;
     return 0;
 }

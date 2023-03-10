@@ -14,39 +14,45 @@
 using namespace std;
 typedef long double ld;
 typedef long long lli;
-typedef pair<lli,lli> ii;
-typedef vector<lli> vi;
 
-
-map<lli,bool> dp;
-
-bool getAns(lli n,lli x){
-    if(n>=x){
-        return false;
-    }
-    if(dp.count(n)){
-    	return dp[n];
-    }
-    bool si=false;
-    fore(i,2,10){
-        if(getAns(n*i,x)==false){
-            si=true;
-            break;
-        }
-    }
-    dp[n]=si;
-    return dp[n];
+int getAns(string s){
+	queue<int> nex;
+	
+	fore(i,0,s.size()){
+		if(s[i]=='1'){
+			nex.push(i);
+		}
+	}
+	int lvl=0;
+	while(nex.size()){
+		int c=nex.size();
+		while(c--){
+			int current=nex.front();
+			nex.pop();
+			if(current>0){
+				if(s[current-1]=='0'){
+					s[current-1]='1';
+					nex.push(current-1);
+				}
+			}
+			if(current<s.size()-1){
+				if(s[current+1]=='0'){
+					s[current+1]='1';
+					nex.push(current+1);
+				}
+			}
+		}
+		lvl++;
+	}
+	return lvl-1;
+	
 }
 
+
+
 int main() {_ 
-    int n;
-    while(cin>>n){
-    	dp.clear();
-        if(getAns(1,n)){
-            cout<<"Stan wins."<<ENDL;
-        }else{
-            cout<<"Ollie wins."<<ENDL;
-        }
-    }
+	string s;
+	cin>>s;
+	cout<<getAns(s)<<ENDL;
     return 0;
 }

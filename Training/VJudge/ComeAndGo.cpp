@@ -16,58 +16,68 @@ typedef long double ld;
 typedef long long lli;
 
 vector<vector<int>> g;
+vector<int> low,tin;
 vector<bool> visited;
-vector<int> tin,low;
 int timer;
-set<int> articulations;
+vector<vector<int>> components;
+stack<int> prevc;
 
-void getAns(int node, int parent){
-	visited[node] = true;
+
+void getAns(int node){
+	visited[node]=true;
 	tin[node]=low[node]=timer++;
-	int childs = 0;
+	prevc.push(node);
 	for(auto x:g[node]){
-		if(x==parent)continue;
-		if(visited[x]){
-			low[node]=min(low[node],tin[x]);
-		}else{
-			getAns(x,node);
-			low[node]=min(low[node],low[x]);
-			if(parent!=-1 && low[x]>=tin[node]){
-				articulations.insert(node);
-			}
-			childs++;
+		if(!visited[x]){
+			getAns(x);
 		}
+		low[node]=min(low[node],low[x]);
 	}
-	if(parent==-1&&childs>1){
-		articulations.insert(node);
+	if(tin[node]==low[node]){
+		vector<int> cmp;
+		while(true){
+			int current = prevc.top();
+			prevc.pop();
+			cmp.pb(current);
+			low[current]=g.size();
+			if(current==node){
+				break;
+			}
+		}
+		components.pb(cmp);
 	}
 }
 
-
-
 int main() {_ 
-	int n,m,a,b;
+	int n,m,a,b,c;
 	while(cin>>n>>m){
 		if(n==0)break;
 		n++;
-		g = vector<vector<int>>(n);
-		tin=low=vector<int>(n,-1);
+		g=vector<vector<int>>(n);
+		low=tin=vector<int>(n,-1);
 		visited=vector<bool>(n,false);
 		timer=0;
-		articulations.clear();
+		components.clear();
+		
 		fore(i,0,m){
-			cin>>a>>b;
+			cin>>a>>b>>c;
 			g[a].pb(b);
-			g[b].pb(a);
-		}
-		fore(i,1,n){
-			if(!visited[i]){
-				getAns(i,-1);
+			if(c==2){
+				g[b].pb(a);
 			}
 		}
-		cout<<articulations.size()<<ENDL;
-
 		
-	}	
+		fore(i,1,n){
+			if(!visited[i]){
+				getAns(i);
+			}
+		}
+		if(components.size()==1){
+			cout<<1<<ENDL;
+		}else{
+			cout<<0<<ENDL;
+		}
+				
+	}
     return 0;
 }

@@ -8,45 +8,38 @@
 #define ALL(s) begin(s), end(s)
 #define ALLR(s) rbegin(s), rend(s)
 #define _ ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-#define sz(s) int(s.size())
+#define SZ(s) int(s.size())
 #define ENDL '\n'
 #define deb(u) cout << #u " : " << (u) << ENDL;
 using namespace std;
-typedef long double ld;
+typedef double ld;
 typedef long long lli;
 typedef pair<lli,lli> ii;
 typedef vector<lli> vi;
 
 
-map<lli,bool> dp;
-
-bool getAns(lli n,lli x){
-    if(n>=x){
-        return false;
-    }
-    if(dp.count(n)){
-    	return dp[n];
-    }
-    bool si=false;
-    fore(i,2,10){
-        if(getAns(n*i,x)==false){
-            si=true;
-            break;
-        }
-    }
-    dp[n]=si;
-    return dp[n];
-}
-
 int main() {_ 
-    int n;
-    while(cin>>n){
-    	dp.clear();
-        if(getAns(1,n)){
-            cout<<"Stan wins."<<ENDL;
-        }else{
-            cout<<"Ollie wins."<<ENDL;
-        }
-    }
+	int n,x,y;
+	cin>>n;
+	vector<vector<int>> matrix(n,vector<int>(n));
+	vector<int> cols(n,INT_MAX);
+	vector<int> rows(n,INT_MAX);
+	fore(i,0,n){
+		fore(j,0,n){
+			cin>>matrix[i][j];
+			
+			if(matrix[i][j]==-1){
+				x=i;
+				y=j;
+			}else{
+				cols[j]=min(cols[j],matrix[i][j]);
+				rows[i]=min(rows[i],matrix[i][j]);
+			}
+		}
+	}
+	
+	int ans = rows[x]+cols[y];
+	cout<<ans<<ENDL;	
+	
     return 0;
 }

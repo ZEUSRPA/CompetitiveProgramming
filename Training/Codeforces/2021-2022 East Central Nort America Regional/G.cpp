@@ -14,39 +14,36 @@
 using namespace std;
 typedef long double ld;
 typedef long long lli;
-typedef pair<lli,lli> ii;
-typedef vector<lli> vi;
 
+struct Node{
+	vector<int> letters;
+	bool end;
+	Node(){
+		end=false;
+		letters = vector<int>(26,-1);
+	}
+};
 
-map<lli,bool> dp;
+vector<Node> trie;
 
-bool getAns(lli n,lli x){
-    if(n>=x){
-        return false;
-    }
-    if(dp.count(n)){
-    	return dp[n];
-    }
-    bool si=false;
-    fore(i,2,10){
-        if(getAns(n*i,x)==false){
-            si=true;
-            break;
-        }
-    }
-    dp[n]=si;
-    return dp[n];
+void insertT(int node,string s, int pos){
+	if(pos==s.size()){
+		trie[node].end=true;
+		return;
+	}
+	if(trie[node].letters[s[pos]-'A']==-1){
+		trie[node].letters[s[pos]-'A']=trie.size();
+		trie.pb(Node());
+	}
+	insertT(trie[node].letters[s[pos]-'A'],s,pos+1);
 }
+int const MAXN = 51;
+int const MAXR= 3000;
+
+
+
 
 int main() {_ 
-    int n;
-    while(cin>>n){
-    	dp.clear();
-        if(getAns(1,n)){
-            cout<<"Stan wins."<<ENDL;
-        }else{
-            cout<<"Ollie wins."<<ENDL;
-        }
-    }
+	
     return 0;
 }

@@ -14,39 +14,25 @@
 using namespace std;
 typedef long double ld;
 typedef long long lli;
-typedef pair<lli,lli> ii;
-typedef vector<lli> vi;
 
 
-map<lli,bool> dp;
-
-bool getAns(lli n,lli x){
-    if(n>=x){
-        return false;
-    }
-    if(dp.count(n)){
-    	return dp[n];
-    }
-    bool si=false;
-    fore(i,2,10){
-        if(getAns(n*i,x)==false){
-            si=true;
-            break;
-        }
-    }
-    dp[n]=si;
-    return dp[n];
-}
 
 int main() {_ 
-    int n;
-    while(cin>>n){
-    	dp.clear();
-        if(getAns(1,n)){
-            cout<<"Stan wins."<<ENDL;
-        }else{
-            cout<<"Ollie wins."<<ENDL;
-        }
-    }
+	int n,a;
+	cin>>n;
+	lli ans=0;
+	stack<pair<int,int>> st;
+	fore(i,0,n){
+		cin>>a;
+		while(st.size()&&st.top().first<a){
+			st.pop();
+		}
+		if(st.size() && st.top().first==a){
+			ans+=i-st.top().second-1;
+			st.pop();
+		}
+		st.push({a,i});
+	}
+	cout<<ans<<ENDL;
     return 0;
 }

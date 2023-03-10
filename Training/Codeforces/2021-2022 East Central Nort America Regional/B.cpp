@@ -14,39 +14,41 @@
 using namespace std;
 typedef long double ld;
 typedef long long lli;
-typedef pair<lli,lli> ii;
-typedef vector<lli> vi;
 
+vector<int> pages;
+vector<vector<int>> g;
+vector<int> degree;
 
-map<lli,bool> dp;
-
-bool getAns(lli n,lli x){
-    if(n>=x){
-        return false;
-    }
-    if(dp.count(n)){
-    	return dp[n];
-    }
-    bool si=false;
-    fore(i,2,10){
-        if(getAns(n*i,x)==false){
-            si=true;
-            break;
-        }
-    }
-    dp[n]=si;
-    return dp[n];
+int getAns(int node){
+	int ans = 0;
+	for(auto x:g[node]){
+		ans+=getAns(x);
+	}
+	ans+=pages[node];
+	return ans;
 }
 
 int main() {_ 
-    int n;
-    while(cin>>n){
-    	dp.clear();
-        if(getAns(1,n)){
-            cout<<"Stan wins."<<ENDL;
-        }else{
-            cout<<"Ollie wins."<<ENDL;
-        }
-    }
+	int n,m,a,b;
+	cin>>n>>m;
+	n++;
+	pages = degree = vector<int>(n,0);
+	g=vector<vector<int>>(n);
+	fore(i,1,n){
+		cin>>pages[i];
+	}
+	fore(i,0,m){
+		cin>>a>>b;
+		g[b].pb(a);
+		degree[a]++;
+	}
+	vector<int> ans;
+	fore(i,1,n){
+		if(degree[i]==0){
+			ans.pb(getAns(i));
+		}
+	}
+	sort(ALL(ans));
+	cout<<ans[0]+ans[1]<<ENDL;
     return 0;
 }

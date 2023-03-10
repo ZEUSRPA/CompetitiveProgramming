@@ -14,39 +14,44 @@
 using namespace std;
 typedef long double ld;
 typedef long long lli;
-typedef pair<lli,lli> ii;
-typedef vector<lli> vi;
 
+vector<vector<int>> g;
+vector<bool> visited;
 
-map<lli,bool> dp;
-
-bool getAns(lli n,lli x){
-    if(n>=x){
-        return false;
-    }
-    if(dp.count(n)){
-    	return dp[n];
-    }
-    bool si=false;
-    fore(i,2,10){
-        if(getAns(n*i,x)==false){
-            si=true;
-            break;
-        }
-    }
-    dp[n]=si;
-    return dp[n];
+void getAns(int node,string& ans){
+	queue<int> nex;
+	nex.push(node);
+	while(nex.size()){
+		int current=nex.front();
+		nex.pop();
+		ans[current-1]='B';
+		for(auto x:g[current]){
+			if(!visited[x]){
+				visited[x]=true;
+				nex.push(x);
+			}
+		}
+	}
 }
 
 int main() {_ 
-    int n;
-    while(cin>>n){
-    	dp.clear();
-        if(getAns(1,n)){
-            cout<<"Stan wins."<<ENDL;
-        }else{
-            cout<<"Ollie wins."<<ENDL;
-        }
-    }
+	int n,m,a,b;
+	cin>>n>>m;
+	n++;
+	g=vector<vector<int>>(n);
+	visited=vector<bool>(n,false);
+	fore(i,0,m){
+		cin>>a>>b;
+		g[a].pb(b);
+		g[b].pb(a);
+		
+	}
+	string ans(n-1,'A');
+	ans[n-2]='A';
+	ans[n-3]='B';
+	visited[n-1]=true;
+	visited[n-2]=true;
+	getAns(n-2,ans);
+	cout<<ans<<ENDL;
     return 0;
 }

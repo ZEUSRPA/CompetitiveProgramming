@@ -17,18 +17,19 @@ typedef long long lli;
 
 vector<vector<int>> g;
 vector<bool> visited;
-vector<int> tin,low;
-int timer;
+vector<int> low;
+vector<int> tin;
 set<int> articulations;
+int timer;
 
 void getAns(int node, int parent){
-	visited[node] = true;
+	visited[node]=true;
 	tin[node]=low[node]=timer++;
-	int childs = 0;
+	int childs=0;
 	for(auto x:g[node]){
 		if(x==parent)continue;
 		if(visited[x]){
-			low[node]=min(low[node],tin[x]);
+			low[node]=min(low[node],tin[x]);	
 		}else{
 			getAns(x,node);
 			low[node]=min(low[node],low[x]);
@@ -43,31 +44,29 @@ void getAns(int node, int parent){
 	}
 }
 
-
-
 int main() {_ 
-	int n,m,a,b;
-	while(cin>>n>>m){
-		if(n==0)break;
-		n++;
-		g = vector<vector<int>>(n);
-		tin=low=vector<int>(n,-1);
-		visited=vector<bool>(n,false);
-		timer=0;
-		articulations.clear();
-		fore(i,0,m){
-			cin>>a>>b;
-			g[a].pb(b);
-			g[b].pb(a);
-		}
-		fore(i,1,n){
-			if(!visited[i]){
-				getAns(i,-1);
-			}
-		}
-		cout<<articulations.size()<<ENDL;
-
-		
-	}	
+    int t,n,m,a,b;
+    cin>>t;
+    int cas=1;
+    while(t--){
+    	cin>>n>>m;
+    	n++;
+    	g=vector<vector<int>>(n);
+    	visited=vector<bool>(n,false);
+    	low=tin=vector<int>(n,-1);
+    	timer=0;
+    	fore(i,0,m){
+    		cin>>a>>b;
+    		g[a].pb(b);
+    		g[b].pb(a);
+    	}
+    	articulations.clear();
+    	fore(i,1,n){
+    		if(!visited[i]){
+    			getAns(i,-1);
+    		}
+    	}
+    	cout<<"Case "<<cas++<<": "<<articulations.size()<<ENDL;
+    }
     return 0;
 }
