@@ -17,36 +17,9 @@ typedef long long lli;
 typedef pair<lli,lli> ii;
 typedef vector<lli> vi;
 
-
-map<lli,bool> dp;
-
-bool getAns(lli n,lli x){
-    if(n>=x){
-        return false;
-    }
-    if(dp.count(n)){
-    	return dp[n];
-    }
-    bool si=false;
-    fore(i,2,10){
-        if(getAns(n*i,x)==false){
-            si=true;
-            break;
-        }
-    }
-    dp[n]=si;
-    return dp[n];
-}
-
 int main() {_ 
     int n;
-    while(cin>>n){
-    	dp.clear();
-        if(getAns(1,n)){
-            cout<<"Stan wins."<<ENDL;
-        }else{
-            cout<<"Ollie wins."<<ENDL;
-        }
-    }
+    cin>>n;
+    cout<<setprecision(n)<<fixed<<M_PI<<ENDL;
     return 0;
 }

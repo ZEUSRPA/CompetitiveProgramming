@@ -22,83 +22,65 @@ int main() {_
     lli n;
     cin>>n;
     vector<lli> glass(n);
-    lli maxi=0;
-    lli pos=0;
-    lli sum = 0;
+    lli tot=0;
     fore(i,0,n){
         cin>>glass[i];
-        if(glass[i]>maxi){
-            maxi=glass[i];
-            pos=i;
-        }
-        sum+=glass[i];
-
-
+        tot+=glass[i];
     }
+    tot = tot/n;
+    lli pos = 0;
+    lli ans=0;
+    lli current=0;
+    lli cont=n;
+    vector<lli> glass2=glass;
+    while(cont){
+        ans+=current;
+        if(glass[pos]!=-1){
+            if(glass[pos]<tot){
+                lli aux=min(current,tot-glass[pos]);
+                glass[pos]+=aux;
+                current-=aux;
+                if(glass[pos]==tot){
+                    glass[pos]=-1;
+                    cont--;
+                }
+            }else{
+                current+=glass[pos]-tot;
+                glass[pos]=-1;
+                cont--;
+            }
 
-    vector<lli> ori=glass;
-    
-    sum=sum/n;
-    // deb(sum);
-    vector<lli> pref(n);
-    pref[0]=glass[0]-sum;
-    maxi = pref[0];
+        }
+        pos++;
+        pos%=n;
+    }
+    cont=n;
+    lli ans2=0;
+    current=0;
     pos=0;
-    fore(i,1,n){
-        pref[i]=pref[i-1]+glass[0]-sum;
-        if(pref[i]>maxi){
-            maxi=pref[i];
-            pos=i;
+    while(cont){
+        ans2+=current;
+        if(glass2[pos]!=-1){
+            if(glass2[pos]<tot){
+                lli aux=min(current,tot-glass2[pos]);
+                glass2[pos]+=aux;
+                current-=aux;
+                if(glass2[pos]==tot){
+                    glass2[pos]=-1;
+                    cont--;
+                }
+            }else{
+                current+=glass2[pos]-tot;
+                glass2[pos]=-1;
+                cont--;
+            }
+
+        }
+        pos--;
+        if(pos<0){
+            pos+=n;
         }
     }
-    lli cost=LLONG_MAX;
-    lli current = pos;
-    lli steps=glass.size();
-    lli tot=0;
-    lli time=0;
-    // while(steps-->0||tot){
-    //     cost+=tot;
-    //     if(glass[current]>sum){
-    //         tot+=glass[current]-sum;
-    //     }else if(glass[current]<sum){
-            
-    //         lli dif = min(tot,sum-glass[current]);
-    //         tot-=dif;
-    //         glass[current]+=dif;
-            
-    //     }
-    //     current++;
-    //     current%=glass.size();
-    //     time++;
-    // }
-    // if(tot||steps>0){
-    //     cost=LLONG_MAX;
-    // }
-    lli cost2=0;
-    glass=ori;
-    current=pos;
-    steps=glass.size();
-    time=0;
-    tot=0;
-    while(steps-->0||tot){
-        cost2+=tot;
-        if(glass[current]>sum){
-            tot+=glass[current]-sum;
-        }else if(glass[current]<sum){
-            lli dif = min(tot,sum-glass[current]);
-            tot-=dif;
-            glass[current]+=dif;
-           
-        }
-        current--;
-        if(current<0){
-            current+=n;
-        }
-    }
-    if(tot||steps>0){
-        cost2=LLONG_MAX;
-    }
-    // deb(cost2);
-    cout<<min(cost,cost2)<<ENDL;
+    cout<<min(ans,ans2)<<ENDL;
     return 0;
 }

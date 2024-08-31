@@ -17,35 +17,35 @@ typedef long long lli;
 typedef pair<lli,lli> ii;
 typedef vector<lli> vi;
 
-
-map<lli,bool> dp;
-
-bool getAns(lli n,lli x){
-    if(n>=x){
-        return false;
-    }
-    if(dp.count(n)){
-    	return dp[n];
-    }
-    bool si=false;
-    fore(i,2,10){
-        if(getAns(n*i,x)==false){
-            si=true;
-            break;
-        }
-    }
-    dp[n]=si;
-    return dp[n];
-}
-
 int main() {_ 
-    int n;
-    while(cin>>n){
-    	dp.clear();
-        if(getAns(1,n)){
-            cout<<"Stan wins."<<ENDL;
+    int t,n;
+    cin>>t;
+    while(t--){
+        cin>>n;
+        int ans=0;
+        int sum=n*(n+1)/2;
+        if(n==1){
+            cout<<1<<ENDL;
+            continue;
+        }
+        if(sum%n==0){
+            cout<<-1<<ENDL;
         }else{
-            cout<<"Ollie wins."<<ENDL;
+            int par=n;
+            int impar=n-1;
+            bool im=true;
+            fore(i,0,n-1){
+                if(im){
+                    im=false;
+                    cout<<impar<<" ";
+                    impar-=2;
+                }else{
+                    im=true;
+                    cout<<par<<" ";
+                    par-=2;
+                }
+            }
+            cout<<par<<ENDL;
         }
     }
     return 0;

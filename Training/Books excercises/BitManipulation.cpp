@@ -17,36 +17,32 @@ typedef long long lli;
 typedef pair<lli,lli> ii;
 typedef vector<lli> vi;
 
+int getReminder(int a, int b){
 
-map<lli,bool> dp;
-
-bool getAns(lli n,lli x){
-    if(n>=x){
-        return false;
-    }
-    if(dp.count(n)){
-    	return dp[n];
-    }
-    bool si=false;
-    fore(i,2,10){
-        if(getAns(n*i,x)==false){
-            si=true;
-            break;
-        }
-    }
-    dp[n]=si;
-    return dp[n];
 }
 
+bool isPowerOfTwo(int a){
+    return (a&1==0);
+}
+
+int turnOffTheLastOne(int a){
+    
+}
+
+int turnOnTheLastZero(int a){
+
+}
+
+int turnOffTheLastConsecutiveOnes(int a){
+
+}
+
+int turnOnTheLastConsecutiveZeros(int a){
+
+}
+
+
 int main() {_ 
-    int n;
-    while(cin>>n){
-    	dp.clear();
-        if(getAns(1,n)){
-            cout<<"Stan wins."<<ENDL;
-        }else{
-            cout<<"Ollie wins."<<ENDL;
-        }
-    }
+    
     return 0;
 }

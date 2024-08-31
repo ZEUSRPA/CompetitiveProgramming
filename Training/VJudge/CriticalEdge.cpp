@@ -8,66 +8,72 @@
 #define ALL(s) begin(s), end(s)
 #define ALLR(s) rbegin(s), rend(s)
 #define _ ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-#define sz(s) int(s.size())
+#define SZ(s) int(s.size())
 #define ENDL '\n'
 #define deb(u) cout << #u " : " << (u) << ENDL;
 using namespace std;
-typedef long double ld;
+typedef double ld;
 typedef long long lli;
+typedef pair<lli,lli> ii;
+typedef vector<lli> vi;
 
-vector<vector<int>> g;
-vector<bool> visited;
-vector<int> tin,low;
 int timer;
-set<int> articulations;
+vector<bool> visited;
+vector<int> tin;
+vector<int> low;
+vector<pair<int,int>> bridges;
 
-void getAns(int node, int parent){
-	visited[node] = true;
+void getAns(vector<vector<int>> &g,int node, int parent){
+	visited[node]=true;
 	tin[node]=low[node]=timer++;
-	int childs = 0;
 	for(auto x:g[node]){
 		if(x==parent)continue;
 		if(visited[x]){
 			low[node]=min(low[node],tin[x]);
 		}else{
-			getAns(x,node);
+			getAns(g,x,node);
 			low[node]=min(low[node],low[x]);
-			if(parent!=-1 && low[x]>=tin[node]){
-				articulations.insert(node);
+			if(low[x]>tin[node]){
+				bridges.pb({min(x,node),max(x,node)});
 			}
-			childs++;
 		}
-	}
-	if(parent==-1&&childs>1){
-		articulations.insert(node);
 	}
 }
 
 
-
 int main() {_ 
-	int n,m,a,b;
-	while(cin>>n>>m){
-		if(n==0)break;
-		n++;
-		g = vector<vector<int>>(n);
-		tin=low=vector<int>(n,-1);
+	int t,n,m,a,b;
+	cin>>t;
+	int current=1;
+	while(t--){
+		cin>>n>>m;
+		vector<vector<int>> g(n+1);
 		visited=vector<bool>(n,false);
+		low = vector<int> (n+1,-1);
+		tin = vector<int> (n+1,-1);
+		bridges.clear();
 		timer=0;
-		articulations.clear();
 		fore(i,0,m){
 			cin>>a>>b;
 			g[a].pb(b);
 			g[b].pb(a);
 		}
-		fore(i,1,n){
+		fore(i,1,n+1){
 			if(!visited[i]){
-				getAns(i,-1);
+				getAns(g,i,-1);
 			}
 		}
-		cout<<articulations.size()<<ENDL;
-
+		sort(ALL(bridges));
+		cout<<"Caso #"<<current++<<ENDL;
+		if(bridges.size()){
+			cout<<bridges.size()<<ENDL;
+			fore(i,0,bridges.size()){
+				cout<<bridges[i].first<<" "<<bridges[i].second<<ENDL;
+			}
 		
-	}	
+		}else{
+			cout<<"Sin bloqueos"<<ENDL;
+		}
+	}
     return 0;
 }

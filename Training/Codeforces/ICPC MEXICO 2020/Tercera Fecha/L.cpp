@@ -17,36 +17,32 @@ typedef long long lli;
 typedef pair<lli,lli> ii;
 typedef vector<lli> vi;
 
-
-map<lli,bool> dp;
-
-bool getAns(lli n,lli x){
-    if(n>=x){
-        return false;
+string nextP(string s){
+    string aux="";
+    fore(i,1,sz(s)){
+        aux+=s[i];
     }
-    if(dp.count(n)){
-    	return dp[n];
-    }
-    bool si=false;
-    fore(i,2,10){
-        if(getAns(n*i,x)==false){
-            si=true;
-            break;
-        }
-    }
-    dp[n]=si;
-    return dp[n];
+    aux+=s[0];
+    return aux;
 }
 
 int main() {_ 
     int n;
-    while(cin>>n){
-    	dp.clear();
-        if(getAns(1,n)){
-            cout<<"Stan wins."<<ENDL;
-        }else{
-            cout<<"Ollie wins."<<ENDL;
+    cin>>n;
+    string s;
+    map<string,int> words;
+    fore(i,0,n){
+        cin>>s;
+        string aux=nextP(s);
+        string mini=s;
+        while(aux!=s){
+            if(aux<mini){
+                mini=aux;
+            }
+            aux=nextP(aux);
         }
+        words[mini]++;
     }
+    cout<<words.size()<<ENDL;
     return 0;
 }

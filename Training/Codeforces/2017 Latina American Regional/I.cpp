@@ -14,39 +14,32 @@
 using namespace std;
 typedef long double ld;
 typedef long long lli;
-typedef pair<lli,lli> ii;
-typedef vector<lli> vi;
+
+vector<pair<lli,lli>> g;
+priority_queue<pair<lli,lli>,vector<pair<lli,lli>>,greater<pair<lli,lli>>> nex;
+vector<lli> parent;
+
+lli find(lli x){
+	if(parent[x]==x){
+		return x;
+	}
+	parent[x]=find(parent[x]);
+	return parent[x];
+}
+
+lli unite(lli x, lli y){
+	
+}
 
 
-map<lli,bool> dp;
+void generateMST(){
 
-bool getAns(lli n,lli x){
-    if(n>=x){
-        return false;
-    }
-    if(dp.count(n)){
-    	return dp[n];
-    }
-    bool si=false;
-    fore(i,2,10){
-        if(getAns(n*i,x)==false){
-            si=true;
-            break;
-        }
-    }
-    dp[n]=si;
-    return dp[n];
 }
 
 int main() {_ 
-    int n;
-    while(cin>>n){
-    	dp.clear();
-        if(getAns(1,n)){
-            cout<<"Stan wins."<<ENDL;
-        }else{
-            cout<<"Ollie wins."<<ENDL;
-        }
-    }
+	int *p = new int;
+	(*p) = 5;
+	int k= (*p);
+	cout<<k<<endl;
     return 0;
 }

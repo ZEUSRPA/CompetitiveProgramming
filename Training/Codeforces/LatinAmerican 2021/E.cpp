@@ -17,49 +17,134 @@ typedef long long lli;
 typedef pair<lli,lli> ii;
 typedef vector<lli> vi;
 
+lli const MAXN=4e5+100;
+struct Node{
+    lli val;
+    lli left;
+    lli right;
+    lli lazy;
+    Node(){
+        val=0;
+        lazy=0;
+        left=-1;
+        right=-1;
+    }
+};
+
+Node st[MAXN];
+
+void push(int node){
+    st[node*2].lazy+=st[node].lazy;
+    st[node*2+1].lazy+=st[node].lazy;
+    if(st[node].left!=-1){
+        st[node*2].left=st[node].left;
+        st[node*2+1].left=st[node].left;
+    }
+    if(st[node].right!=-1){
+        st[node*2].right=st[node].right;
+        st[node*2+1].right=st[node].right;
+    }
+    st[node].left=-1;
+    st[node].right=-1;
+    st[node].lazy=0;
+}
+
+void update(int node, int s, int e, int l, int r, int current, bool left,int sum){
+    
+    if(st[node].lazy||st[node].left!=-1||st[node].right!=-1){
+        if(s!=e){
+            push(node);
+        }else{
+            st[node].val+=st[node].lazy;
+            st[node].lazy=0;
+        }
+    }
+    if(e<l||s>r){
+        return;
+    }
+    if(l<=s && e<=r){
+        if(left){
+            st[node].left=current;
+        }else{
+            st[node].right=current;
+        }
+        if(s!=e){
+            st[node].lazy+=sum;
+            push(node);
+        }else{
+            st[node].val+=sum;
+        }
+    }else{
+        int mid=s+(e-s)/2;
+        update(node*2,s,mid,l,r,current,left,sum);
+        update(node*2+1,mid+1,e,l,r,current,left,sum);
+    }
+}
+
+Node query(int node, int s, int e, int dx){
+    if(st[node].lazy||st[node].left!=-1||st[node].right!=-1){
+        if(s!=e){
+            push(node);
+        }else{
+            st[node].val+=st[node].lazy;
+            st[node].lazy=0;
+        }
+    }
+    if(s==e){
+        return st[node];
+    }
+    int mid=s+(e-s)/2;
+    if(dx<=mid){
+        return query(node*2,s,mid,dx);
+    }
+    return query(node*2+1,mid+1,e,dx);
+}
+
 
 int main() {_ 
     int n;
     cin>>n;
-    vector<int> h(n);
-    priority_queue<pair<int,int>> best;
+    vector<lli> height(n);
+    priority_queue<pair<lli,lli>> nex;
     fore(i,0,n){
-        cin>>h[i];
-        best.push({h[i],i});
+        cin>>height[i];
+        nex.push({height[i],i});
     }
-    vector<pair<int,int>> ans(n,{0,INT_MAX});
-    while(best.size()){
-        auto current=best.top();
-        best.pop();
-        int dist=1;
-        ans[current.second].second=0;
-        int a=current.second+1;
-        int b=current.second-1;
-        bool other=true;
-        while(other){
-            other=false;
-            if(a<ans.size()){
-                if(ans[a].second>dist){
-                    other=true;
-                    ans[a].first++;
-                    ans[a].second=dist;
-                }
+    while(nex.size()){
+        auto current = nex.top();
+        nex.pop();
+        auto x=query(1,0,n-1,current.second);
+        // deb(current.second);
+        // deb(x.left);
+        // deb(x.right);
+        if(x.left==-1){
+            update(1,0,n-1,0,current.second-1,current.second,false,1);
+        }else{
+            lli start=current.second-(current.second-x.left)/2;
+            if((current.second-x.left)%2==0){
+                start++;
             }
-            if(b>=0){
-                if(ans[b].second>dist){
-                    other=true;
-                    ans[b].first++;
-                    ans[b].second=dist;
-                }
+            if(start<=current.second-1){
+                update(1,0,n-1,start,current.second-1,current.second,false,1);
             }
-            a++;
-            b--;
-            dist++;
+            update(1,0,n-1,x.left,current.second,current.second,false,0);
+        }
+        if(x.right==-1){
+            update(1,0,n-1,current.second+1,n-1,current.second,true,1);
+        }else{
+            lli start=current.second+(x.right-current.second)/2;
+            if((x.right-current.second)%2==0){
+                start--;
+            }
+            if(start>=current.second+1){
+                update(1,0,n-1,current.second+1,start,current.second,true,1);
+            }
+            update(1,0,n-1,current.second,x.right,current.second,true,0);
         }
     }
-    for(auto x:ans){
-        cout<<x.first<<" ";
+    fore(i,0,n-1){
+        cout<<query(1,0,n-1,i).val<<" ";
     }
-    cout<<ENDL;
+    cout<<query(1,0,n-1,n-1).val<<ENDL;
     return 0;
 }

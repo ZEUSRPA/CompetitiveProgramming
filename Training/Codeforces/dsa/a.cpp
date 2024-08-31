@@ -17,35 +17,29 @@ typedef long long lli;
 typedef pair<lli,lli> ii;
 typedef vector<lli> vi;
 
+int primes[1000009];
 
-map<lli,bool> dp;
-
-bool getAns(lli n,lli x){
-    if(n>=x){
-        return false;
-    }
-    if(dp.count(n)){
-    	return dp[n];
-    }
-    bool si=false;
-    fore(i,2,10){
-        if(getAns(n*i,x)==false){
-            si=true;
-            break;
+void criba(){
+    primes[0]=0;
+    primes[1]=0;
+    for(int i=2;i*i<1000009;i++){
+        if(primes[i]){
+            for(int j=i+i;j<1000009;j+=i){
+                primes[j]=0;
+            }
         }
     }
-    dp[n]=si;
-    return dp[n];
 }
 
 int main() {_ 
     int n;
-    while(cin>>n){
-    	dp.clear();
-        if(getAns(1,n)){
-            cout<<"Stan wins."<<ENDL;
-        }else{
-            cout<<"Ollie wins."<<ENDL;
+    cin>>n;
+    memset(primes, 1, sizeof(primes));
+    criba();
+    for(int i=1;i<1001;i++){
+        if(primes[n*i+1]==0){
+            cout<<i<<ENDL;
+            break;
         }
     }
     return 0;

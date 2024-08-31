@@ -8,45 +8,17 @@
 #define ALL(s) begin(s), end(s)
 #define ALLR(s) rbegin(s), rend(s)
 #define _ ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-#define sz(s) int(s.size())
+#define SZ(s) int(s.size())
 #define ENDL '\n'
 #define deb(u) cout << #u " : " << (u) << ENDL;
 using namespace std;
-typedef long double ld;
+typedef double ld;
 typedef long long lli;
 typedef pair<lli,lli> ii;
 typedef vector<lli> vi;
 
 
-map<lli,bool> dp;
-
-bool getAns(lli n,lli x){
-    if(n>=x){
-        return false;
-    }
-    if(dp.count(n)){
-    	return dp[n];
-    }
-    bool si=false;
-    fore(i,2,10){
-        if(getAns(n*i,x)==false){
-            si=true;
-            break;
-        }
-    }
-    dp[n]=si;
-    return dp[n];
-}
-
 int main() {_ 
-    int n;
-    while(cin>>n){
-    	dp.clear();
-        if(getAns(1,n)){
-            cout<<"Stan wins."<<ENDL;
-        }else{
-            cout<<"Ollie wins."<<ENDL;
-        }
-    }
+	cout<<"1 1 2 3 5"<<ENDL;
     return 0;
 }

@@ -17,57 +17,62 @@ typedef long long lli;
 
 vector<vector<int>> g;
 vector<bool> visited;
-vector<int> tin,low;
+vector<int> low,tin;
 int timer;
-set<int> articulations;
+set<pair<int,int>> streets;
 
 void getAns(int node, int parent){
-	visited[node] = true;
+	visited[node]=true;
 	tin[node]=low[node]=timer++;
-	int childs = 0;
 	for(auto x:g[node]){
 		if(x==parent)continue;
 		if(visited[x]){
 			low[node]=min(low[node],tin[x]);
+			if(tin[node]>tin[x]){
+				streets.insert({node,x});
+			}else{
+				streets.insert({x,node});
+			}
 		}else{
 			getAns(x,node);
 			low[node]=min(low[node],low[x]);
-			if(parent!=-1 && low[x]>=tin[node]){
-				articulations.insert(node);
+			if(low[x]>tin[node]){
+				streets.insert({node,x});
+				streets.insert({x,node});
+			}else{
+				streets.insert({node,x});
 			}
-			childs++;
 		}
-	}
-	if(parent==-1&&childs>1){
-		articulations.insert(node);
 	}
 }
 
-
-
 int main() {_ 
 	int n,m,a,b;
+	int cas=1;
 	while(cin>>n>>m){
 		if(n==0)break;
 		n++;
-		g = vector<vector<int>>(n);
-		tin=low=vector<int>(n,-1);
+		g=vector<vector<int>>(n);
 		visited=vector<bool>(n,false);
+		tin=low=vector<int>(n,-1);
+		streets.clear();
 		timer=0;
-		articulations.clear();
 		fore(i,0,m){
 			cin>>a>>b;
 			g[a].pb(b);
 			g[b].pb(a);
+			
 		}
 		fore(i,1,n){
 			if(!visited[i]){
 				getAns(i,-1);
 			}
 		}
-		cout<<articulations.size()<<ENDL;
-
-		
-	}	
+		cout<<cas++<<ENDL<<ENDL;
+		for(auto x:streets){
+			cout<<x.first<<" "<<x.second<<ENDL;
+		}
+		cout<<"#"<<ENDL;
+	}    
     return 0;
 }
