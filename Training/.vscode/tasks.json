@@ -1,31 +1,12 @@
-// {
-//     "version": "2.0.0",
-//     "tasks": [
-//       {
-//         "type": "shell",
-//         "label": "g++.exe build active file",
-//         "command": "C:\\MinGW\\bin\\g++.exe",
-//         "args": ["-g", "${file}", "-o", "${fileDirname}\\${fileBasenameNoExtension}.exe"],
-//         "options": {
-//           "cwd": "C:\\MinGW\\bin"
-//         },
-//         "problemMatcher": ["$gcc"],
-//         "group": {
-//           "kind": "build",
-//           "isDefault": true
-//         }
-//       }
-//     ]
-//   }
 {
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Compile and run",
+      "label": "Compile and run (macOS/Linux)",
       "type": "shell",
       "command": "",
       "args": [
-        "copy",
+        "cp", // Replaced 'copy' with 'cp'
         "\"${file}\"",
         "\"${workspaceFolder}\"",
         "&&",
@@ -34,21 +15,21 @@
         "-o",
         "test.out",
         "&&",
-        "test.out",
+        "./test.out", // Added './' to execute on macOS/Linux
         "<",
         "input.txt",
         ">",
         "output.txt",
         "&&",
-        "del",
-        "*out",
+        "rm", // Replaced 'del' with 'rm'
+        "test.out", // Changed '*out' to 'test.out' for safer deletion, as 'rm *out' might delete unintended files if present
         "&&",
-        "del",
+        "rm", // Replaced 'del' with 'rm'
         "${fileBasename}"
       ],
       "group": {
         "kind": "build",
-        "isDefault": true,
+        "isDefault": true
       },
       "problemMatcher": {
         "owner": "cpp",
